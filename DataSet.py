@@ -62,3 +62,26 @@ def trainDataSet(rawParts,lableParts,rawVocab,LableVocab,device =device ):
         transet.append((rawpart,lablepart))
     return transet
 
+def test_unk(train_rawvocab,pairs):
+    sum = 0
+    s2i = train_rawvocab[0]
+    for pair in pairs:
+        for word in pair:
+            if word not in s2i:
+                sum+=1
+    return sum
+
+def word2unk(word,trainvocab):
+    if word not in trainvocab[0]:
+        return "<unk>"
+    else:
+        return word
+
+def testDataSet(rawPart,trainvocab,device=device):
+    rawPart2trainwordvector = [[word2unk(word,trainvocab) for word in part]for part in rawPart]
+    rawParts_in = word2index(rawPart2trainwordvector,trainvocab)
+    testset = []
+    for i in range(len(rawParts_in)):
+        rawpart = torch.tensor(rawParts_in[i], dtype=torch.long, device=device)
+        testset.append(rawpart)
+    return testset
