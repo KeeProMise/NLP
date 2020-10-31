@@ -85,3 +85,14 @@ def testDataSet(rawPart,trainvocab,device=device):
         rawpart = torch.tensor(rawParts_in[i], dtype=torch.long, device=device)
         testset.append(rawpart)
     return testset
+
+def test_trainDataSet(testrawPart,trainvocab,test_label_parts,train_label_vocab):
+    rawPart2trainwordvector = [[word2unk(word, trainvocab) for word in part] for part in testrawPart]
+    rawParts_in = word2index(rawPart2trainwordvector, trainvocab)
+    labelParts_in = word2index(test_label_parts, train_label_vocab)
+    testset = []
+    for i in range(len(rawParts_in)):
+        rawpart = torch.tensor(rawParts_in[i], dtype=torch.long, device=device)
+        lablepart = torch.tensor(labelParts_in[i], dtype=torch.long, device=device)
+        testset.append((rawpart, lablepart))
+    return testset
