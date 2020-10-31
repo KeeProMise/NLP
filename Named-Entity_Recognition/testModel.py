@@ -17,7 +17,7 @@ tagvocab = DataSet.load_vocab(".\\vocab","train_tagvocab")
 
 testset = DataSet.testDataSet(inputs,rawvocab,device)
 
-model = torch.load(".\model\BiLSTM-CRF2")
+model = torch.load(".\model\BiLSTM-CRF5")
 model.to(device)
 
 import time
@@ -65,8 +65,8 @@ def evaluate(predict_filepath,true_filepath):
 def main():
     # tag_list=test(testset)
     # label_list =tagi2label(tag_list,tagvocab)
-    # write2fileSystem(".\data\mytest_label.txt", label_list)
-    evaluate(".\data\mytest_label.txt", ".\data\\test_label.txt")
+    # write2fileSystem(".\data\mytest_label1.txt", label_list)
+    evaluate(".\data\mytest_label1.txt", ".\data\\test_label.txt")
 
 if __name__ == '__main__':
     main()
